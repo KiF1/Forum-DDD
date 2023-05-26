@@ -3,7 +3,7 @@ import { Entity } from "@/cors/entities/entity"
 import { UniqueEntityID } from "@/cors/entities/unique-entity-id"
 import { Optional } from "@/cors/types/optional"
 
-interface QuestionProps{
+export interface QuestionProps{
   authorId: UniqueEntityID 
   bestAnswerId?: UniqueEntityID
   title: string
