@@ -1,14 +1,13 @@
 import { Question } from "@/domain/forum/enterprises/entities/question";
 import { QuestionsRepository } from "../../repositories/question-repository";
-import { UniqueEntityID } from "@/cors/entities/unique-entity-id";
+import { Either, right } from "@/cors/either";
+import { ResourceNotFoundError } from "../errors/not-found-error";
 
 interface GetQuestionBySlugUseCaseRequest{
   slug: string
 }
 
-interface GetQuestionBySlugUseCaseResponse{
-  question: Question
-}
+type GetQuestionBySlugUseCaseResponse = Either<ResourceNotFoundError, { question: Question }>
 
 export class GetQuestionBySlugUseCase{
   constructor(private questionRepository: QuestionsRepository) {}
@@ -19,6 +18,6 @@ export class GetQuestionBySlugUseCase{
       throw new Error('Question not found')
     }
 
-    return { question }
+    return right({ question })
   }
 }
