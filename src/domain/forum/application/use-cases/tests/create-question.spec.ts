@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/cors/entities/unique-entity-id';
 import { CreateQuestionUseCase } from '../cases/create-question';
 import { InMemoryQuestionsRepository } from 'tests/repositories/in-memory-questions-repository';
 
@@ -15,9 +16,15 @@ describe('Create Question', () => {
       authorId: '1',
       title: 'Nova Pregunta',
       content: 'conteudo Pregunta',
+      attachmentIds: ['1', '2']
     })
     expect(result.isRight()).toBe(true)
     expect(inMemoryQuestionsRepository.items[0]).toEqual(result.value?.question)
+    expect(inMemoryQuestionsRepository.items[0].attachments).toHaveLength(2)
+    expect(inMemoryQuestionsRepository.items[0].attachments).toEqual([
+      expect.objectContaining({ attachmentId: new UniqueEntityID('1') }),
+      expect.objectContaining({ attachmentId: new UniqueEntityID('2') })
+    ])
   })
 })
 
