@@ -3,6 +3,7 @@ import { QuestionsRepository } from "../../repositories/question-repository";
 import { UniqueEntityID } from "@/cors/entities/unique-entity-id";
 import { Either, right } from "@/cors/either";
 import { QuestionAttachment } from "@/domain/forum/enterprises/entities/question-attachment";
+import { QuestionAttachmentList } from "@/domain/forum/enterprises/entities/question-attachment-list";
 
 interface CreateQuestionUseCaseRequest{
   authorId: string
@@ -25,9 +26,9 @@ export class CreateQuestionUseCase{
 
     const questionAttachments = attachmentIds.map(attachmentId => {
       return QuestionAttachment.create({ attachmentId: new UniqueEntityID(attachmentId), questionId: question.id })
-    })
+    }) 
 
-    question.attachments = questionAttachments
+    question.attachments = new QuestionAttachmentList(questionAttachments)
     
     await this.questionRepository.create(question);
 

@@ -1,7 +1,7 @@
 import { Entity } from "@/cors/entities/entity";
 import { UniqueEntityID } from "@/cors/entities/unique-entity-id";
 
-interface AnswerAttachmentProps{
+export interface AnswerAttachmentProps{
   answerId: UniqueEntityID
   attachmentId: UniqueEntityID
 }
